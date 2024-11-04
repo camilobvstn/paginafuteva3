@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partidos de Fútbol</title>
+    <link rel="stylesheet" href="{%static 'css/index.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <style>
+        body{
+            background-color:rgba(41, 49, 69, 1) ;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="team-logos">
+       
+            <img src="{% static 'img/logo_equipo1.png' %}" alt="Equipo 1">
+            <img src="{% static 'img/logo_equipo2.png' %}" alt="Equipo 2">
+            <img src="{% static 'img/logo_equipo3.png' %}" alt="Equipo 3">
+            <img src="{% static 'img/logo_equipo4.png' %}" alt="Equipo 4">
+            <img src="{% static 'img/logo_equipo5.png' %}" alt="Equipo 5">
+            <img src="{% static 'img/logo_equipo6.png' %}" alt="Equipo 6">
+            <img src="{% static 'img/logo_equipo7.png' %}" alt="Equipo 7">
+            <img src="{% static 'img/logo_equipo8.png' %}" alt="Equipo 8">
+            <img src="{% static 'img/logo_equipo9.png' %}" alt="Equipo 9">
+            <img src="{% static 'img/logo_equipo10.png' %}" alt="Equipo 10">
+            <img src="{% static 'img/logo_equipo11.png' %}" alt="Equipo 11">
+            <img src="{% static 'img/logo_equipo12.png' %}" alt="Equipo 12">
+            <img src="{% static 'img/logo_equipo13.png' %}" alt="Equipo 13">
+            <img src="{% static 'img/logo_equipo14.png' %}" alt="Equipo 14">
+            <img src="{% static 'img/logo_equipo15.png' %}" alt="Equipo 15">
+            <img src="{% static 'img/logo_equipo16.png' %}" alt="Equipo 16">
+        </div>
+        <nav>
+            <img id="logo-header" src="{% static 'img/logocampeonat.png' %}" alt="">
+            <a href="{% url 'lista-partido' %}">Lista de partidos</a>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <a href="{% url 'registrar-partido' %}">Registrar partidos</a>
+            <a href="{%url 'registrar-comentario' %}">Comentar</a>
+            <a href="{%url 'lista-comentarios' %}">Lista comentarios</a>
+            {% if user.is_authenticated %} 
+                <a href="{% url 'logout' %}" class="derecha-nav">Cerrar Sesión</a>
+                <a href="#" class="derecha-nav">Hola, {{ user.username }}</a>
+            {% else %} 
+                <a href="{% url 'login' %}" class="derecha-nav">Iniciar Sesión</a>
+                <a href="{% url 'registrar-usuario' %}" class="derecha-nav">Registrarse</a>
+            {% endif %}
+        </nav>
+    </header>
+    
+    <div class="container mt-4">
+        <h2 class="titulo-main">Enfrentamientos de Equipos</h2>
+        <div class="row">
+            {% for p in partidos %}
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <div class="d-flex justify-content-center align-items-center mb-3">
+                            <img src="{{ p.logolocal.url }}" alt="local" class="logo-equipo me-2" style="width: 50px; height: 50px;">
+                            <span class="fw-bold mx-2">VS</span>
+                            <img src="{{ p.logovisita.url }}" alt="visita" class="logo-equipo ms-2" style="width: 50px; height: 50px;">
+                        </div>
+                        <h5 class="card-title text-center">{{ p.nombrelocal }} vs {{ p.nombrevisita }}</h5>
+                        <p class="card-text text-muted mb-1">Fecha: {{ p.fecha }}</p>
+                        <p class="card-text text-muted">Hora: {{ p.horapartido }}</p>
+                        <a href="{% url 'ver-comentarios' p.id %}" class="btn btn-primary btn-sm mt-2">Ver comentarios</a>
+                        <a href="{% url 'registrar-comentario' %}" class="btn btn-secondary btn-sm mt-2">Comentar</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
