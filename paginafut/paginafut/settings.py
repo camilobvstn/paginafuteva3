@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'eva3',
-    'crispy_forms'
+    'rest_framework'
 ]
 
 CRISPY_TEMPLATES_PACK='bootstrap4'

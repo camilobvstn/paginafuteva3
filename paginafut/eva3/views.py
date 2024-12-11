@@ -4,6 +4,14 @@ from .forms import PartidoForm,CustomUserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from rest_framework.decorators import api_view
+from rest_framework import status
+from rest_framework import response
+from eva3.serializers import PartidoSerializer, ComentarioSerializer
+from rest_framework.response import Response
+from rest_framework import viewsets
+
+
 
 def index(request):
     partidos=Partido.objects.all()
@@ -120,4 +128,6 @@ def eliminar_comentario(request, comentario_id):
     return redirect('lista-comentarios')
 
 
-
+class PartidoViewSet(viewsets.ModelViewSet):
+    queryset=Partido.objects.all()
+    serializer_class= PartidoSerializer
